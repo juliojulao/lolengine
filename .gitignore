@@ -4,3 +4,4 @@ venv/
 static/
 static_collected/
 static_files
+db.sqlite3
