@@ -1,3 +1,6 @@
 my_opgg/.env
 venv/
 .env
+static/
+static_collected/
+static_files
