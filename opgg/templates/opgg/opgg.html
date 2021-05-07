@@ -1,0 +1,53 @@
+{% load static %}
+<title>My OPGG</title>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'myWebpageCSS.css' %}"/>
+</head>
+
+<div style="padding: 45px;">
+    <a href="{% url 'index' %}" style="color: inherit; text-decoration: none;">
+        <img src="{% static 'poroicon.png' %}" alt="Poro Icon" height="100px" width="100px" style="vertical-align: -30px; padding-right: 10px;"/>
+        <h1>LoL Stats</h1>
+    </a>
+</div>
+<body>
+    <section>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                {{ form.ign }} {{ form.region }}
+                <input type="submit" value="Search" style="text-align: center; display: inline; 
+                    padding: 8px; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                    font-size: 32; color: rgb(70, 70, 70)">
+            </div>
+        </form>
+    </section>
+    {% if player_info %}
+    <section>
+        <div class='rank', style="font-size: 48;">
+            Showing results for '{{ player_info.ign }}'
+        </div>
+        <div class='rank' style='white-space: pre-line; text-align: left;'>
+            {% if player_info.rank == "Unranked" %}
+                Rank: Unranked
+            {% else %}
+                Rank: {{ player_info.rank.tier }} {{ player_info.rank.rank }}
+                Wins: {{ player_info.rank.wins }}
+                Losses: {{ player_info.rank.losses }}
+                Winrate: {{ player_info.rank.winrate }}
+            {% endif %}
+        </div>
+        <div class="matches">
+            {% for match in player_info.recent_matches %}
+                {{ match|safe }}
+            {% endfor %}
+        </div>
+    </section>
+    {% else %}
+    <section>
+        <div class='rank' style='white-space: pre-line;'>
+            {{ error }}
+        </div>
+    </section>
+    {% endif %}
+</body>
