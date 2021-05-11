@@ -15,48 +15,48 @@ class Summoner(models.Model):
             return "Unranked"
         else:
             self.ranked_stats['winrate'] = str(int(round(self.ranked_stats["wins"] / (self.ranked_stats["wins"] + self.ranked_stats["losses"]),2) * 100)) + '%'
+            print('Rank retrieved')
             return self.ranked_stats
 
     def showRecentMatches(self):
-        last_match = self.recent_matches['matches'][:5]
+        last_match = self.recent_matches['matches'][:20]
         match_list = []
         for i in last_match:
             match_detail = watcher.match.by_id(self.region, i['gameId'])
-
             participants = []
-            for i,row in enumerate(match_detail['participants']):
+            for row in match_detail['participants']:
                 participants_row = {}
-                # print(row['participantId'], match_detail["participantIdentities"][int(row['participantId']-1)]['participantId'])
-                # if int(row['participantId']) ==  match_detail["participantIdentities"][int(row['participantId']-1)]['participantId']:
-                participants_row['Summoner Name'] = match_detail["participantIdentities"][int(row['participantId']-1)]['player']['summonerName']
-                participants_row['Champion'] = championName(watcher, champ_dict, row['championId'])
-                participants_row['Summ 1'] = ssName(watcher, summs_dict, row['spell1Id'])
-                participants_row['Summ 2'] = ssName(watcher, summs_dict, row['spell2Id'])
+                participants_row['ign'] = match_detail["participantIdentities"][int(row['participantId']-1)]['player']['summonerName']
+                participants_row['champion'] = getChampion(champ_dict, row['championId'])
+                participants_row['ss1'] = ssName(summs_dict, row['spell1Id'])
+                participants_row['ss2'] = ssName(summs_dict, row['spell2Id'])
                 if row['stats']['win'] == True:
                     participants_row['Win'] = 'Win'
                 else:
                     participants_row['Win'] = 'Loss'
-                participants_row['K'] = row['stats']['kills']
-                participants_row['D'] = row['stats']['deaths']
-                participants_row['A'] = row['stats']['assists']
-                participants_row['Damage Dealt'] = row['stats']['totalDamageDealt']
-                participants_row['Gold'] = row['stats']['goldEarned']
-                participants_row['Champ Lvl'] = row['stats']['champLevel']
-                participants_row['CS'] = row['stats']['totalMinionsKilled']
-                participants_row['Item 1'] = itemName(watcher, items_dict, row['stats']['item0'])
-                participants_row['Item 2'] = itemName(watcher, items_dict, row['stats']['item1'])
-                participants_row['Item 3'] = itemName(watcher, items_dict, row['stats']['item2'])
-                participants_row['Item 4'] = itemName(watcher, items_dict, row['stats']['item3'])
-                participants_row['Item 5'] = itemName(watcher, items_dict, row['stats']['item4'])
-                participants_row['Item 6'] = itemName(watcher, items_dict, row['stats']['item5'])
-                participants_row['Trinket'] = itemName(watcher, items_dict, row['stats']['item6'])
+                participants_row['kills'] = row['stats']['kills']
+                participants_row['deaths'] = row['stats']['deaths']
+                participants_row['assists'] = row['stats']['assists']
+                participants_row['kda'] = f"{participants_row['kills']}/{participants_row['deaths']}/{participants_row['assists']}"
+                participants_row['totaldamageDealt'] = format(row['stats']['totalDamageDealt'], ',d')
+                participants_row['gold'] = format(row['stats']['goldEarned'], ',d')
+                participants_row['champLevel'] = row['stats']['champLevel']
+                participants_row['creepScore'] = row['stats']['totalMinionsKilled']
+                participants_row['items'] = [
+                    getItem(items_dict, row['stats']['item0']),
+                    getItem(items_dict, row['stats']['item1']),
+                    getItem(items_dict, row['stats']['item2']),
+                    getItem(items_dict, row['stats']['item3']),
+                    getItem(items_dict, row['stats']['item4']),
+                    getItem(items_dict, row['stats']['item5']),
+                    getItem(items_dict, row['stats']['item6'])
+                ]
                 participants.append(participants_row)
-            df = pd.DataFrame(participants)
-            print()
+
+            # df = pd.DataFrame(participants)
             # print(tabulate(df, showindex=False, headers=df.columns))
-            print('\n')
+            # print('\n')
             # print(df.to_string())
-            # print(participants)
-            # match_list.append(participants)
-            match_list.append(df.to_html)
+            match_list.append(participants)
+        print('Matchlist retrieved')
         return match_list

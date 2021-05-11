@@ -47,14 +47,14 @@ def index(request,ign=None,region=None):
         context =  {'form': summoner_form}
     return render(request, 'opgg/opgg.html', {'form': summoner_form})
 
-def results(request, ign, region):
-    if request.method == 'POST':
-        summoner_form = SummonerForm(request.POST)
-        if summoner_form.is_valid():
-            ign = summoner_form.cleaned_data['ign']
-            region = summoner_form.cleaned_data['region']
-            return redirect(f'/{region}/{ign}')
-    else:
-        summoner_form = SummonerForm()
+# def results(request, ign, region):
+#     if request.method == 'POST':
+#         summoner_form = SummonerForm(request.POST)
+#         if summoner_form.is_valid():
+#             ign = summoner_form.cleaned_data['ign']
+#             region = summoner_form.cleaned_data['region']
+#             return redirect(f'/{region}/{ign}')
+#     else:
+#         summoner_form = SummonerForm()
 
-    return render(request, 'opgg/opgg.html', {'form': summoner_form})
+#     return render(request, 'opgg/opgg.html', {'form': summoner_form})
