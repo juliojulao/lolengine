@@ -31,7 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = env('SECRET_KEY')
 SECRET_KEY = 'e^uhvemvsjtqflgl@!nkq4=d$-3a*i@7hv_%v*=wf048d!c^t$'
 
-RIOT_APIKEY = env('RIOT_APIKEY')
+# RIOT_APIKEY = env('RIOT_APIKEY')
+RIOT_APIKEY = 'RGAPI-359690da-4048-4b79-8078-960c0e1714ad'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
