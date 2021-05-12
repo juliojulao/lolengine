@@ -28,8 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = env('SECRET_KEY')
-# SECRET_KEY = 'e^uhvemvsjtqflgl@!nkq4=d$-3a*i@7hv_%v*=wf048d!c^t$'
+# SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'e^uhvemvsjtqflgl@!nkq4=d$-3a*i@7hv_%v*=wf048d!c^t$'
 
 RIOT_APIKEY = env('RIOT_APIKEY')
 
