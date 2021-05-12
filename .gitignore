@@ -1,6 +1,4 @@
 my_opgg/.env
 venv/
 .env
-static/
 staticfiles/
-db.sqlite3
