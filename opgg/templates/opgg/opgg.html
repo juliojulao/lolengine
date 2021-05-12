@@ -54,16 +54,16 @@
                     </tr>
                     {% for player in match %}
                     <tr class="winloss" result="{{player.Win}}">
-                        <td><img style="display: block;" src="http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{{player.champion.id}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion.name}}"></td>
-                        <td><img style="display: block;" src="http://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
-                        <td><img style="display: block;" src="http://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
+                        <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{{player.champion.id}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion.name}}"></td>
+                        <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
+                        <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
                         <td style="max-width: 100px; text-align: left;">{{player.ign}}</td>
                         <td>{{player.kda}}</td>
                         <td>{{player.totaldamageDealt}}</td>
                         <td>{{player.gold}}</td>
                         <td style="text-align: left;">
                             {% for item in player.items %}
-                                <img src="http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{{item.image.full}}" alt="{{item.name}}" height="35px" width="35px" title="{{item.name}}">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{{item.image.full}}" alt="{{item.name}}" height="35px" width="35px" title="{{item.name}}">
                             {% endfor %}
                         </td>
                     </tr>
