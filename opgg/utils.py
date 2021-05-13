@@ -32,10 +32,11 @@ def getSummoner(watcher, region, ign):
         return watcher.summoner.by_name(region, ign)
     except ApiError as err:
         if err.response.status_code == 403:
-            print("Invalid API key.")
+            print("Invalid API key. Please update API key.")
+            return "Invalid API key. Please update API key"
         elif err.response.status_code == 404:
             print("Summoner does not exist in this region.")
-        return None
+        return "Summoner does not exist in this region."
 
 def getSummonerRank(watcher, region, me):
     ranks = watcher.league.by_summoner(region, me['id'])

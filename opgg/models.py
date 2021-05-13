@@ -19,7 +19,7 @@ class Summoner(models.Model):
             return self.ranked_stats
 
     def showRecentMatches(self):
-        last_match = self.recent_matches['matches'][:20]
+        last_match = self.recent_matches['matches'][:5]
         match_list = []
         for i in last_match:
             match_detail = watcher.match.by_id(self.region, i['gameId'])
@@ -27,6 +27,7 @@ class Summoner(models.Model):
             for row in match_detail['participants']:
                 participants_row = {}
                 participants_row['ign'] = match_detail["participantIdentities"][int(row['participantId']-1)]['player']['summonerName']
+                participants_row['region'] = self.region
                 participants_row['champion'] = getChampion(champ_dict, row['championId'])
                 participants_row['ss1'] = ssName(summs_dict, row['spell1Id'])
                 participants_row['ss2'] = ssName(summs_dict, row['spell2Id'])
