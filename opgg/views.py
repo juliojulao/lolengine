@@ -21,7 +21,7 @@ def index(request,ign=None,region=None):
             summoner_form.save()
             mySummoner.ign = summoner_form.cleaned_data['ign']
             mySummoner.region = summoner_form.cleaned_data['region']
-            # return redirect(f'/{mySummoner.region}/{mySummoner.ign}')
+            return redirect(f'/{mySummoner.region}/{mySummoner.ign}')
     elif ign and region:
         print("URL REQUEST SENT")
         try:

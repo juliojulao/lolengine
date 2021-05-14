@@ -2,3 +2,4 @@ my_opgg/.env
 venv/
 .env
 staticfiles/
+Procfile.windows

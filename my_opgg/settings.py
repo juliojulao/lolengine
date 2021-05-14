@@ -35,7 +35,8 @@ RIOT_APIKEY = env('RIOT_APIKEY')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ALLOWED_HOSTS = ['lolengine.herokuapp.com','127.0.0.1']
 
