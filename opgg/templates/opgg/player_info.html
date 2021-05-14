@@ -1,7 +1,6 @@
 {% extends 'opgg/home.html' %} {% load static %}
 
 {% block content %}
-{% if player_info %}
 <section>
     <div class='rank', style="font-size: 48;">
         Showing results for '{{ player_info.ign }}'
@@ -56,11 +55,4 @@
         {% endfor %}
     </div>
 </section>
-{% else %}
-<section>
-    <div class='rank' style='white-space: pre-line;'>
-        {{ error }}
-    </div>
-</section>
-{% endif %}
 {% endblock content %}

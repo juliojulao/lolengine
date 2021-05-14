@@ -25,5 +25,13 @@
         </form>
     </section>
 </body>
+{% if player_info %}
 {% block content %}
-{% endblock content%}
+{% endblock content %}
+{% else %}
+<section>
+    <div class='rank' style='white-space: pre-line;'>
+        {{ error }}
+    </div>
+</section>
+{% endif %}

@@ -31,29 +31,33 @@ def getSummoner(watcher, region, ign):
     try:
         return watcher.summoner.by_name(region, ign)
     except ApiError as err:
+        print(err)
         if err.response.status_code == 403:
             print("Invalid API key. Please update API key.")
             return "Invalid API key. Please update API key"
         elif err.response.status_code == 404:
-            print("Summoner does not exist in this region.")
-        return "Summoner does not exist in this region."
+            print(f"Summoner \"{ign}\" does not exist in this region.")
+            return f"Summoner \"{ign}\" does not exist in this region."
+        elif err.response.status_code == 400:
+            print("Invalid region")
+            return "Invalid region."
 
-def getSummonerRank(watcher, region, me):
-    ranks = watcher.league.by_summoner(region, me['id'])
+def getSummonerRank(watcher, region, player_data):
+    ranks = watcher.league.by_summoner(region, player_data['id'])
     for rank in ranks:
         if rank['queueType'] == 'RANKED_SOLO_5x5':
             return rank
     return None
 
-def getCurrentMatch(watcher, region, me):
+def getCurrentMatch(watcher, region, player_data):
     try:
-        return watcher.spectator.by_summoner(region, me['id'])
+        return watcher.spectator.by_summoner(region, player_data['id'])
     except ApiError:
         print('Summoner currently not in a match')
         return None
     
-def getRecentMatches(watcher, region, me):
-    return watcher.match.matchlist_by_account(region, me['accountId'])
+def getRecentMatches(watcher, region, player_data):
+    return watcher.match.matchlist_by_account(region, player_data['accountId'])
 
 def getItem(items_dict, item_id):
     try:

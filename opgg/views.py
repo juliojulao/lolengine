@@ -11,73 +11,49 @@ from .models import Summoner
 # Create your views here.
 def index(request,ign=None,region=None):
     print(ign, region)
+    mySummoner = Summoner()
+    player_data = None
+    summoner_form = SummonerForm()
     if request.method == 'POST':
+        print("POST REQUEST SENT")
         summoner_form = SummonerForm(request.POST)
         if summoner_form.is_valid():
-            mySummoner = Summoner()
+            summoner_form.save()
             mySummoner.ign = summoner_form.cleaned_data['ign']
             mySummoner.region = summoner_form.cleaned_data['region']
-            me = getSummoner(watcher, mySummoner.region, mySummoner.ign)
-            if type(me) == str:
-                summoner_form = SummonerForm()
-                context = {'error': me, 'form': summoner_form}
-                return render(request, 'opgg/home.html', context)
-                # return redirect('/',{'form': summoner_form})
-            mySummoner.ranked_stats = getSummonerRank(watcher, mySummoner.region, me)
-            mySummoner.current_match = getCurrentMatch(watcher, mySummoner.region, me)
-            mySummoner.recent_matches = getRecentMatches(watcher, mySummoner.region, me)
-            
-            print('BEFORE CONTEXT')
-            context = {
-                'player_info': {
-                    'ign': mySummoner.ign,
-                    'region': mySummoner.region,
-                    'rank': mySummoner.showRank(),
-                    'current_match': mySummoner.current_match,
-                    'recent_matches': mySummoner.showRecentMatches(),
-                },
-                'form': SummonerForm(),       
-            }
-            print('AFTER CONTEXT')
-            return render(request, 'opgg/player_info.html', context)
-            # return redirect(f'/{mySummoner.region}/{mySummoner.ign}', context)
+            # return redirect(f'/{mySummoner.region}/{mySummoner.ign}')
+    elif ign and region:
+        print("URL REQUEST SENT")
+        try:
+            mySummoner.ign = ign
+            mySummoner.region = region
+            # player_data = getSummoner(watcher, mySummoner.region, mySummoner.ign)
+        except:
+            print("Region BOOM")
+            return redirect('index')
     else:
-        summoner_form = SummonerForm()
+        print("EMPTY PAGE REQUEST SENT")
+        # summoner_form = SummonerForm()
         context =  {'form': summoner_form}
-    return render(request, 'opgg/home.html', {'form': summoner_form})
+        return render(request, 'opgg/home.html', context)
 
-def results(request, ign=None, region=None):
-    mySummoner = Summoner()
-    try:
-        mySummoner.ign = ign
-        mySummoner.region = region
-        me = getSummoner(watcher, mySummoner.region, mySummoner.ign)
-        if not me:
-            print(mySummoner.ign)
-            print("Empty form and url")
-            summoner_form = SummonerForm()
-            context = {'error': f'Summoner "{mySummoner.ign}" does not exist.', 'form': summoner_form}
-            return render(request, 'opgg/home.html', context)
-            # return redirect('/',{'form': summoner_form})
-        mySummoner.ranked_stats = getSummonerRank(watcher, mySummoner.region, me)
-        mySummoner.current_match = getCurrentMatch(watcher, mySummoner.region, me)
-        mySummoner.recent_matches = getRecentMatches(watcher, mySummoner.region, me)
-        
-        print('BEFORE CONTEXT')
-        context = {
-            'player_info': {
-                'ign': mySummoner.ign,
-                'region': mySummoner.region,
-                'rank': mySummoner.showRank(),
-                'current_match': mySummoner.current_match,
-                'recent_matches': mySummoner.showRecentMatches(),
-            },
-            'form': SummonerForm(),       
-        }
-        print('AFTER CONTEXT')
-        return render(request, 'opgg/player_info.html', context)
-    except:
-        print("Region BOOM")
-        return redirect(index)
-
-    # return redirect(f'/{mySummoner.region}/{mySummoner.ign}', context)
+    player_data = getSummoner(watcher, mySummoner.region, mySummoner.ign)
+    if type(player_data) == str:
+        # summoner_form = SummonerForm()
+        context = {'error': player_data, 'form': summoner_form}
+        return render(request, 'opgg/home.html', context)
+    mySummoner.ranked_stats = getSummonerRank(watcher, mySummoner.region, player_data)
+    mySummoner.current_match = getCurrentMatch(watcher, mySummoner.region, player_data)
+    mySummoner.recent_matches = getRecentMatches(watcher, mySummoner.region, player_data)
+    context = {
+        'player_info': {
+            'ign': mySummoner.ign,
+            'region': mySummoner.region,
+            'rank': mySummoner.showRank(),
+            'current_match': mySummoner.current_match,
+            'recent_matches': mySummoner.showRecentMatches(),
+        },
+        'form': summoner_form,       
+    }
+    print("RENDER EMPTY PAGE")
+    return render(request, 'opgg/player_info.html', context)
