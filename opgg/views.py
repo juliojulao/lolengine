@@ -18,7 +18,7 @@ def index(request,ign=None,region=None):
         print("POST REQUEST SENT")
         summoner_form = SummonerForm(request.POST)
         if summoner_form.is_valid():
-            summoner_form.save()
+            # summoner_form.save()
             mySummoner.ign = summoner_form.cleaned_data['ign']
             mySummoner.region = summoner_form.cleaned_data['region']
             return redirect(f'/{mySummoner.region}/{mySummoner.ign}')
