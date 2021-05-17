@@ -19,7 +19,7 @@ class Summoner(models.Model):
             return self.ranked_stats
 
     def showRecentMatches(self):
-        last_match = self.recent_matches['matches'][:5]
+        last_match = self.recent_matches['matches'][:10]
         match_list = []
         for i in last_match:
             match_detail = watcher.match.by_id(self.region, i['gameId'])
@@ -58,6 +58,38 @@ class Summoner(models.Model):
             # print(tabulate(df, showindex=False, headers=df.columns))
             # print('\n')
             # print(df.to_string())
-            match_list.append(participants)
+
+            match_list.append(sorted(participants, key=lambda i: i['Win'], reverse=True))
         print('Matchlist retrieved')
         return match_list
+
+    def showCurrentMatch(self):
+        blue = 100
+        red = 200
+        if self.current_match == None:
+            print("Summoner currently not in a match.\n")
+            return
+        else:
+            participants = []
+            for row in self.current_match['participants']:
+                parts_row = {}
+                parts_row['ign'] = row['summonerName']
+                parts_row['region'] = self.region
+                try:
+                    rank = getSummonerRank(watcher, self.region, watcher.summoner.by_name(self.region,row['summonerName']))
+                    parts_row['rank'] = rank['tier'] + ' ' + rank['rank']
+                except TypeError:
+                    parts_row['rank'] = 'Unkranked'
+                parts_row['champion'] = getChampion(champ_dict, row['championId'])
+                parts_row['ss1'] = ssName(summs_dict, row['spell1Id'])
+                parts_row['ss2'] = ssName(summs_dict, row['spell2Id'])
+                if row['teamId'] == blue:
+                    parts_row['team'] = 'Blue'
+                else:
+                    parts_row['team'] = 'Red'
+                participants.append(parts_row)
+            # df = pd.DataFrame(participants)
+            # print()
+            # print(tabulate(df, showindex=False, headers=df.columns))
+            # print('\n')
+        return participants    

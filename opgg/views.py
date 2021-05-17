@@ -50,7 +50,7 @@ def index(request,ign=None,region=None):
             'ign': mySummoner.ign,
             'region': mySummoner.region,
             'rank': mySummoner.showRank(),
-            'current_match': mySummoner.current_match,
+            'current_match': mySummoner.showCurrentMatch(),
             'recent_matches': mySummoner.showRecentMatches(),
         },
         'form': summoner_form,       

@@ -2,57 +2,104 @@
 
 {% block content %}
 <section>
-    <div class='rank', style="font-size: 48;">
-        Showing results for '{{ player_info.ign }}'
+<div class='rank', style="font-size: 48;">
+    Showing results for '{{ player_info.ign }}'
+</div>
+<div class='rank' style='white-space: pre-line; text-align: left;'>
+    {% if player_info.rank == "Unranked" %}
+        Rank: Unranked
+    {% else %}
+        Rank: {{ player_info.rank.tier }} {{ player_info.rank.rank }}
+        Wins: {{ player_info.rank.wins }}
+        Losses: {{ player_info.rank.losses }}
+        Winrate: {{ player_info.rank.winrate }}
+    {% endif %}
+</div>
+<div class="tab">
+    <button class="tablinks" onclick="openTabInfo(event, 'matchhistory')">Match History</button>
+    <button class="tablinks" onclick="openTabInfo(event, 'livegame')">Live Game</button>
+    <button class="tablinks" onclick="openTabInfo(event, 'stats')">Statistics</button>
+</div>
+
+<div id='matchhistory' class='tabcontent' style="display: block;">
+    {% for match in player_info.recent_matches %}
+    <div class='match_table'>
+        <table data-toggle>
+            <tr>
+                <th></th>
+                <th>D</th>
+                <th>F</th>
+                <th>Name</th>
+                <th>KDA</th>
+                <th>Damage</th>
+                <th>Gold</th>
+                <th>Items</th>
+            </tr>
+            {% for player in match %}
+            <tr class="winloss" result="{{player.Win}}">
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{{player.champion.id}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion.name}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
+                <td style="text-align: left;">
+                    <a class="view_summoner" href="{% url 'summoner' player.region player.ign %}">
+                        {{player.ign|truncatechars:10}}
+                    </a>
+                </td>
+                <td>{{player.kda}}</td>
+                <td>{{player.totaldamageDealt}}</td>
+                <td>{{player.gold}}</td>
+                <td style="text-align: left;">
+                    {% for item in player.items %}
+                        <img src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{{item.image.full}}" alt="{{item.name}}" height="35px" width="35px" title="{{item.name}}">
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <script>changeBackgroundColor()</script>
     </div>
-    <div class='rank' style='white-space: pre-line; text-align: left;'>
-        {% if player_info.rank == "Unranked" %}
-            Rank: Unranked
-        {% else %}
-            Rank: {{ player_info.rank.tier }} {{ player_info.rank.rank }}
-            Wins: {{ player_info.rank.wins }}
-            Losses: {{ player_info.rank.losses }}
-            Winrate: {{ player_info.rank.winrate }}
-        {% endif %}
+    {% endfor %}
+</div>
+
+
+<div id="livegame" class="tabcontent">
+    {% if player_info.current_match %}
+    <div class='match_table'>
+        <table>
+            <tr>
+                <th></th>
+                <th>D</th>
+                <th>F</th>
+                <th>Name</th>
+                <th>Rank</th>
+            </tr>
+            {% for player in player_info.current_match %}
+            <tr class="teamColor" result="{{player.team}}">
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{{player.champion.id}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion.name}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
+                <td style="text-align: left;">
+                    <a class="view_summoner" href="{% url 'summoner' player.region player.ign %}">
+                        {{player.ign|truncatechars:20}}
+                    </a>
+                </td>
+                <td>{{player.rank}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <script>changeBackgroundColorLive()</script>
     </div>
-    <div class='matches'>
-        {% for match in player_info.recent_matches %}
-        <div class='match_table'>
-            <table>
-                <tr>
-                    <th></th>
-                    <th>D</th>
-                    <th>F</th>
-                    <th>Name</th>
-                    <th>KDA</th>
-                    <th>Damage</th>
-                    <th>Gold</th>
-                    <th>Items</th>
-                </tr>
-                {% for player in match %}
-                <tr class="winloss" result="{{player.Win}}">
-                    <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{{player.champion.id}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion.name}}"></td>
-                    <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
-                    <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
-                    <td style="text-align: left;">
-                        <a class="view_summoner" href="{% url 'summoner' player.region player.ign %}">
-                            {{player.ign|truncatechars:10}}
-                        </a>
-                    </td>
-                    <td>{{player.kda}}</td>
-                    <td>{{player.totaldamageDealt}}</td>
-                    <td>{{player.gold}}</td>
-                    <td style="text-align: left;">
-                        {% for item in player.items %}
-                            <img src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{{item.image.full}}" alt="{{item.name}}" height="35px" width="35px" title="{{item.name}}">
-                        {% endfor %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-            <script>changeBackgroundColor()</script>
-        </div>
-        {% endfor %}
+    {% else %}
+    <div class='rank' style='white-space: pre-line;'>
+        '{{player_info.ign}}' is not currently in game.
     </div>
+    {% endif %}
+</div>
+
+<div id="stats" class="tabcontent">
+    <h3>Statistics</h3>
+    <p>Under construction.</p>
+</div>
+
 </section>
 {% endblock content %}

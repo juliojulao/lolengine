@@ -38,13 +38,6 @@ hr {
     color: rgb(70, 70, 70);
 }
 
-.matches {
-    padding: 50px;
-    display: inline;
-    color: white;
-    
-}
-
 .match_table table{
     /* table-layout: fixed;
     width: 80%; */
@@ -82,8 +75,42 @@ hr {
     color: rgb(23, 120, 211);
 }
 
-section {
-    /* border: 3   px solid white;
-    box-sizing: 10px;
-    box-shadow: 10px 10px 10px black; */
-}
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: auto;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+    width: 100%;
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+  }
