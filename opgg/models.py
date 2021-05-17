@@ -58,8 +58,7 @@ class Summoner(models.Model):
             # print(tabulate(df, showindex=False, headers=df.columns))
             # print('\n')
             # print(df.to_string())
-
-            match_list.append(sorted(participants, key=lambda i: i['Win'], reverse=True))
+            match_list.append(participants)
         print('Matchlist retrieved')
         return match_list
 
@@ -92,4 +91,4 @@ class Summoner(models.Model):
             # print()
             # print(tabulate(df, showindex=False, headers=df.columns))
             # print('\n')
-        return participants    
+        return sorted(participants, key=lambda x: x['team'])
