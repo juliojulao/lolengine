@@ -1,10 +1,15 @@
 html {
     text-align: center;
+    height: 100%;
 }
 
 body {
-    background-color: rgb(85, 150, 150);
-    padding: 10px;
+    /* background-color: rgb(85, 150, 150); */
+    background: linear-gradient(to bottom, #006666 -5%, #ffff99 150%);
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 h1 {
     text-align: center;

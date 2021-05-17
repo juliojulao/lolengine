@@ -4,6 +4,7 @@ html {
 
 body {
     background-color: rgb(85, 150, 150);
+    background: linear-gradient(to bottom, #006666 0%, #ffff99 119%);
     padding: 10px;
 }
 h1 {
