@@ -1,7 +1,6 @@
 function changeBackgroundColor() {
     var winOrLoss = document.getElementsByClassName("winloss");
-    var color;
-    var i;
+    var i, color;
     for (i = 0; i < winOrLoss.length; i++){
         var res = winOrLoss[i].getAttribute("result");
         if (res == "Win") {
@@ -15,8 +14,7 @@ function changeBackgroundColor() {
 
 function changeBackgroundColorLive() {
     var winOrLoss = document.getElementsByClassName("teamColor");
-    var color;
-    var i;
+    var i, color;
     for (i = 0; i < winOrLoss.length; i++){
         var res = winOrLoss[i].getAttribute("result");
         if (res == "Blue") {
@@ -25,6 +23,22 @@ function changeBackgroundColorLive() {
             color = "rgba(238, 1, 1, 0.58)";
         }
         winOrLoss[i].style.backgroundColor = color;
+    }
+}
+
+function highlightSearchedUser(user) {
+    var i, participants;
+    participants = document.getElementsByClassName("view_summoner")
+    console.log(participants)
+    for (i = 0; i < participants.length; i++){
+        var part = participants[i].getAttribute("participant-ign");
+        if (user == part){
+            console.log("SUCCESS", user, part)
+            participants[i].style.fontWeight = "bold";
+        }
+        else{
+            console.log("FAILED", user, part)
+        }
     }
 }
 

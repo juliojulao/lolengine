@@ -4,9 +4,6 @@ from django.shortcuts import render, redirect
 from .forms import SummonerForm
 from .models import Summoner
 
-# API_KEY = settings.RIOT_APIKEY
-# watcher = LolWatcher(API_KEY)
-# patch_version = json.loads(requests.get("https://ddragon.leagueoflegends.com/api/versions.json").content)[0]
 
 # Create your views here.
 def index(request,ign=None,region=None):
@@ -38,10 +35,12 @@ def index(request,ign=None,region=None):
         return render(request, 'opgg/home.html', context)
 
     player_data = getSummoner(watcher, mySummoner.region, mySummoner.ign)
+    print(player_data)
     if type(player_data) == str:
         # summoner_form = SummonerForm()
         context = {'error': player_data, 'form': summoner_form}
         return render(request, 'opgg/home.html', context)
+    mySummoner.ign = player_data["name"]
     mySummoner.ranked_stats = getSummonerRank(watcher, mySummoner.region, player_data)
     mySummoner.current_match = getCurrentMatch(watcher, mySummoner.region, player_data)
     mySummoner.recent_matches = getRecentMatches(watcher, mySummoner.region, player_data)

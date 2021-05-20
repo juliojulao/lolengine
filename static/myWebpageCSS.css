@@ -10,13 +10,16 @@ body {
     margin: 0;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 7px;
 }
 h1 {
     text-align: center;
     display: inline;
     padding: 10px;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 56;
+    font-variant: small-caps;
     color: white;
     text-shadow: 10px 10px 5px black;
 }
@@ -84,7 +87,7 @@ hr {
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: white;
     width: auto;
     display: flex;
     justify-content: space-around;

@@ -5,7 +5,7 @@ import json, requests
 import pandas as pd
 import time
 
-
+# Load champion, summoner spells, and items dictionaries to retrieve data later
 API_KEY = settings.RIOT_APIKEY
 watcher = LolWatcher(API_KEY)
 patch_version = json.loads(requests.get("https://ddragon.leagueoflegends.com/api/versions.json").content)[0]

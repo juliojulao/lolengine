@@ -15,6 +15,8 @@
         Winrate: {{ player_info.rank.winrate }}
     {% endif %}
 </div>
+</section>
+<section>
 <div class="tab">
     <button class="tablinks" onclick="openTabInfo(event, 'matchhistory')">Match History</button>
     <button class="tablinks" onclick="openTabInfo(event, 'livegame')">Live Game</button>
@@ -41,7 +43,7 @@
                 <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
                 <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
                 <td style="text-align: left;">
-                    <a class="view_summoner" href="{% url 'summoner' player.region player.ign %}">
+                    <a class="view_summoner"  participant-ign="{{player.ign}}" self-ign="{{player_info.ign}}" href="{% url 'summoner' player.region player.ign %}">
                         {{player.ign|truncatechars:10}}
                     </a>
                 </td>
@@ -56,7 +58,9 @@
             </tr>
             {% endfor %}
         </table>
-        <script>changeBackgroundColor()</script>
+        <script>changeBackgroundColor();
+                highlightSearchedUser("{{player_info.ign}}");
+        </script>
     </div>
     {% endfor %}
 </div>
@@ -87,7 +91,9 @@
             </tr>
             {% endfor %}
         </table>
-        <script>changeBackgroundColorLive()</script>
+        <script>changeBackgroundColorLive();
+                highlightSearchedUser("{{player_info.ign}}");
+        </script>
     </div>
     {% else %}
     <div class='rank' style='white-space: pre-line;'>
@@ -97,8 +103,10 @@
 </div>
 
 <div id="stats" class="tabcontent">
-    <h3>Statistics</h3>
-    <p>Under construction.</p>
+    <div class="rank">
+        <h3>Statistics</h3>
+        <p>Under construction.</p>
+    </div>
 </div>
 
 </section>
