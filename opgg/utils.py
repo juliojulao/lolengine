@@ -57,7 +57,7 @@ def getCurrentMatch(watcher, region, player_data):
         return None
     
 def getRecentMatches(watcher, region, player_data):
-    return watcher.match.matchlist_by_account(region, player_data['accountId'])
+    return watcher.match.matchlist_by_account(region, player_data['puuid'])
 
 def getItem(items_dict, item_id):
     try:
