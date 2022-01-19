@@ -9,8 +9,8 @@ class SummonerForm(forms.ModelForm):
             'region',
         ]
         REGIONS = (
-            ('na1', 'NA'),
-            ('euw1', 'EUW'),
+            ('americas', 'NA'),
+            ('europe', 'EUW'),
         )  
         widgets = {
             'ign': forms.TextInput(attrs={'class': 'search', 'placeholder': 'Summoner name'}),
