@@ -43,7 +43,7 @@ def index(request,ign=None,region=None):
     mySummoner.ign = player_data["name"]
     mySummoner.ranked_stats = getSummonerRank(watcher, mySummoner.region, player_data)
     mySummoner.current_match = getCurrentMatch(watcher, mySummoner.region, player_data)
-    mySummoner.recent_matches = getRecentMatches(watcher, mySummoner.region, player_data)
+    mySummoner.recent_matches = getRecentMatches(watcher, "americas", player_data)
     context = {
         'player_info': {
             'ign': mySummoner.ign,
