@@ -24,7 +24,7 @@ class Summoner(models.Model):
         for i in last_match:
             match_detail = watcher.match.by_id("americas", i)
             participants = []
-            for row in match_detail['participants']:
+            for row in match_detail['metadata']['participants']:
                 participants_row = {}
                 participants_row['ign'] = match_detail["participantIdentities"][int(row['participantId']-1)]['player']['summonerName']
                 participants_row['region'] = self.region
