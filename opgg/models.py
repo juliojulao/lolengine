@@ -22,7 +22,7 @@ class Summoner(models.Model):
         last_match = self.recent_matches[:10]
         match_list = []
         for i in last_match:
-            match_detail = watcher.match.by_id(self.region, i)
+            match_detail = watcher.match.by_id("americas", i)
             participants = []
             for row in match_detail['participants']:
                 participants_row = {}
