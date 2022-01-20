@@ -29,6 +29,7 @@ class Summoner(models.Model):
                 participants_row['ign'] = row['summonerName']
                 participants_row['region'] = self.region
                 participants_row['champion'] = row['championName']
+                participants_row['champId'] = row['championID']
                 participants_row['ss1'] = ssName(summs_dict, row['summoner1Id'])
                 participants_row['ss2'] = ssName(summs_dict, row['summoner2Id'])
                 if row['win'] == True:
