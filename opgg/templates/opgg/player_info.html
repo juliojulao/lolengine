@@ -39,7 +39,7 @@
             </tr>
             {% for player in match %}
             <tr class="winloss" result="{{player.Win}}">
-                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/{{player.champId}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/{{player.champId}}.png" alt="{{player.champion}}" height="35px" width="35px" title="{{player.champion}}"></td>
                 <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
                 <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
                 <td style="text-align: left;">
@@ -79,7 +79,7 @@
             </tr>
             {% for player in player_info.current_match %}
             <tr class="teamColor" result="{{player.team}}">
-                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/{{player.champId}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/{{player.champId}}.png" alt="{{player.champion}}" height="35px" width="35px" title="{{player.champion}}"></td>
                 <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
                 <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
                 <td style="text-align: left;">
