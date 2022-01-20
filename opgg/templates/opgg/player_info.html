@@ -39,9 +39,9 @@
             </tr>
             {% for player in match %}
             <tr class="winloss" result="{{player.Win}}">
-                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{{player.champId}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion.name}}"></td>
-                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
-                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/{{player.champId}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
                 <td style="text-align: left;">
                     <a class="view_summoner"  participant-ign="{{player.ign}}" self-ign="{{player_info.ign}}" href="{% url 'summoner' player.region player.ign %}">
                         {{player.ign|truncatechars:10}}
@@ -52,7 +52,7 @@
                 <td>{{player.gold}}</td>
                 <td style="text-align: left;">
                     {% for item in player.items %}
-                        <img src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{{item.image.full}}" alt="{{item.name}}" height="35px" width="35px" title="{{item.name}}">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/{{item.image.full}}" alt="{{item.name}}" height="35px" width="35px" title="{{item.name}}">
                     {% endfor %}
                 </td>
             </tr>
@@ -79,9 +79,9 @@
             </tr>
             {% for player in player_info.current_match %}
             <tr class="teamColor" result="{{player.team}}">
-                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{{player.champion.id}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion.name}}"></td>
-                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
-                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/11.10.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/{{player.champId}}.png" alt="{{player.champion.name}}" height="35px" width="35px" title="{{player.champion}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/{{player.ss1.id}}.png" alt="{{player.ss1.name}}" height="35px" width="35px" title="{{player.ss1.name}}"></td>
+                <td><img style="display: block;" src="https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/{{player.ss2.id}}.png" alt="{{player.ss2.name}}" height="35px" width="35px" title="{{player.ss2.name}}"></td>
                 <td style="text-align: left;">
                     <a class="view_summoner" href="{% url 'summoner' player.region player.ign %}">
                         {{player.ign|truncatechars:20}}
